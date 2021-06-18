@@ -8,7 +8,7 @@ module.exports = {
 
 function findBy(filter) {
   return db("users").where(filter)
-  .orderBy("user_id")
+  .orderBy("id")
 }
 
 async function add(user) {
@@ -18,7 +18,7 @@ async function add(user) {
 
 function findById(id) {
   return db("users as u")
-    .select("u.id", "u.username")
+    .select("u.id", "u.username", "u.password")
     .where("u.id", id)
     .first();
 }
