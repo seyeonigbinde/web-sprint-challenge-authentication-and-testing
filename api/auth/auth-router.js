@@ -6,7 +6,8 @@ const router = require('express').Router();
 const User = require('../users/users-model.js');
 const { JWT_SECRET } = require("../secrets/index"); 
 const { checkUsernameFree, checkPayload, 
-  checkUsernameExists, checkPasswordExists } 
+  checkUsernameExists, 
+  } 
   = require('../middleware/auth-middleware.js');
 
 router.post('/register', checkUsernameFree, checkPayload, (req, res, next) => {
@@ -45,7 +46,7 @@ router.post('/register', checkUsernameFree, checkPayload, (req, res, next) => {
    .catch(next);
 });
 
-router.post('/login', checkUsernameExists, checkPayload, checkPasswordExists, (req, res, next) => {
+router.post('/login', checkUsernameExists, checkPayload, (req, res, next) => {
   
   /*
     IMPLEMENT
