@@ -46,7 +46,7 @@ router.post('/register', checkUsernameFree, checkPayload, (req, res, next) => {
    .catch(next);
 });
 
-router.post('/login', checkUsernameExists, checkPayload, (req, res, next) => {
+router.post('/login', checkPayload, checkUsernameExists,  (req, res, next) => {
   
   /*
     IMPLEMENT
@@ -80,8 +80,8 @@ router.post('/login', checkUsernameExists, checkPayload, (req, res, next) => {
     token
   });
 } else {
-  // next({ status: 401, message: 'Invalid Credentials' });
-  next()
+  next({ status: 401, message: "Invalid Credentials" });
+  // next()
 }
 });
 

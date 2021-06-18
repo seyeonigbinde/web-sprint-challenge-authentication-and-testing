@@ -17,7 +17,7 @@ async function checkUsernameFree(req, res, next) {
 
 function checkPayload(req, res, next) {
   const { username, password } = req.body;
-  const valid = Boolean(username && password );
+  const valid = Boolean(username && password);
   if (valid) {
     next();
   } else {
@@ -31,8 +31,9 @@ const checkUsernameExists = async (req, res, next) => {
     try {
       const [user] = await findBy({ username: req.body.username })
       if (!user) {
-        next({ status: 401, message: `Invalid credentials` })
-      } else {
+        next({ status: 401, message: "Invalid Credentials" })
+      } 
+      else {
         req.user = user
         next()
       }
