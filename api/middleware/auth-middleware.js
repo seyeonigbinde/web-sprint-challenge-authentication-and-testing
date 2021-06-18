@@ -22,7 +22,7 @@ function checkPayload(req, res, next) {
     next();
   } else {
     res.status(422).json({
-      message: 'Please provide username and password',
+      message: 'username and password required',
     });
   }
 }
@@ -41,8 +41,23 @@ const checkUsernameExists = async (req, res, next) => {
     }
   }
 
+  const checkPasswordExists = async (req, res, next) => {
+    try {
+      const [pwd] = await findBy({ password: req.body.password })
+      if (!pwd) {
+        next({ status: 401, message: `Invalid credentials` })
+      } else {
+        req.pwd = pwd
+        next()
+      }
+    } catch (err) {
+      next(err)
+    }
+  }
+
 module.exports = {
    checkPayload,
     checkUsernameFree,
-    checkUsernameExists
+    checkUsernameExists,
+    checkPasswordExists
   }
