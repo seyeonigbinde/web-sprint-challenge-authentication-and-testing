@@ -22,7 +22,7 @@ function checkPayload(req, res, next) {
     next();
   } else {
     res.status(422).json({
-      message: 'username and password required',
+      message: "username and password required",
     });
   }
 }
