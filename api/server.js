@@ -6,6 +6,7 @@ const restrict = require('./middleware/restricted.js')
 
 const authRouter = require('./auth/auth-router.js')
 const jokesRouter = require('./jokes/jokes-router.js')
+const Users = require('./users/users-model')
 
 const server = express()
 
@@ -21,6 +22,6 @@ server.use((err, req, res, next) => { // eslint-disable-line
       message: err.message,
       stack: err.stack,
     })
-  })
+  }) 
 
 module.exports = server
