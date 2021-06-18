@@ -1,4 +1,5 @@
 const Users = require("../users/users-model")
+const { findBy } = require("../users/users-model")
 
 async function checkUsernameFree(req, res, next) {
     try {
@@ -26,7 +27,22 @@ function checkPayload(req, res, next) {
   }
 }
 
+const checkUsernameExists = async (req, res, next) => {
+    try {
+      const [user] = await findBy({ username: req.body.username })
+      if (!user) {
+        next({ status: 401, message: `Invalid credentials` })
+      } else {
+        req.user = user
+        next()
+      }
+    } catch (err) {
+      next(err)
+    }
+  }
+
 module.exports = {
    checkPayload,
-    checkUsernameFree
+    checkUsernameFree,
+    checkUsernameExists
   }

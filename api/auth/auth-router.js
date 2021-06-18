@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 const User = require('../users/users-model.js');
 const { JWT_SECRET } = require("../secrets/index"); 
-const { checkUsernameFree, checkPayload } = require('../middleware/auth-middleware.js');
+const { checkUsernameFree, checkPayload, checkUsernameExists } = require('../middleware/auth-middleware.js');
 
 router.post('/register', checkUsernameFree, checkPayload, (req, res, next) => {
   
@@ -43,8 +43,8 @@ router.post('/register', checkUsernameFree, checkPayload, (req, res, next) => {
    .catch(next);
 });
 
-router.post('/login', (req, res, next) => {
-  res.end('implement login, please!');
+router.post('/login', checkUsernameExists, checkPayload, (req, res, next) => {
+  
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -83,7 +83,7 @@ router.post('/login', (req, res, next) => {
 
 function tokenBuilder(user) {
   const payload = {
-    subject: user.user_id,
+    subject: user.id,
     username: user.username,
   }
   const options = {
