@@ -14,8 +14,19 @@ async function checkUsernameFree(req, res, next) {
     }
   }
 
+function checkPayload(req, res, next) {
+  const { username, password } = req.body;
+  const valid = Boolean(username && password );
+  if (valid) {
+    next();
+  } else {
+    res.status(422).json({
+      message: 'Please provide username and password',
+    });
+  }
+}
 
 module.exports = {
-   
+   checkPayload,
     checkUsernameFree
   }
