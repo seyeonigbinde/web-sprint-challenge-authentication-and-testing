@@ -10,7 +10,7 @@ const { checkUsernameFree, checkPayload,
   } 
   = require('../middleware/auth-middleware.js');
 
-router.post('/register', checkUsernameFree, checkPayload, (req, res, next) => {
+router.post('/register',  checkPayload, checkUsernameFree, (req, res, next) => {
   
   /*
     IMPLEMENT
